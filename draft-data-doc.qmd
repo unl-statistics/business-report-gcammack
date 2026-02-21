@@ -1,3 +1,38 @@
 ---
 title: "Draft: Data Documentation"
 ---
+
+# Title
+
+**2024 OSHA Injury and Illness Data Summary**  
+
+---
+
+# Author
+
+Occupational Safety and Health Administration (OSHA, United States Department of Labor  
+
+---
+
+# Licnces
+
+OSHA is required by regulation 29 CFR 1904 to matain record of workplace related injuries and provide that information to information to the public
+
+---
+
+# Data-Specific Information
+
+## Data Dictionary 
+
+A data Dictionary for this data set can be found at https://www.osha.gov/sites/default/files/summary_data_dictionary.pdf
+
+---
+
+## Overview of the Contents 
+
+The data comes from employers who submitted injury and illness reports through OSHA’s Injury Tracking Application in 2024. There where over 385,000 busnessess reported with 1.5 million injuries and illnesses.
+
+---
+
+## Methodology of Data Collection / Load Frequency
+Employers were required to submit their injury and illness data using the 300 or 301 form all forms had to be submitted by March 2, 2025. OSHA went through there own data cleaning process for the data which is elaborated on here https://www.osha.gov/sites/default/files/ITA_data_users_guide.pdf
