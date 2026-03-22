@@ -8,9 +8,21 @@ editor: visual
 
 We used the OSHA 2024 Injury Tracking Application Data to complete this analysis. We used injuries per 100,000 hours worked as our metric when comparing across groups. This makes it so the data is not skewed by the number of employees that a company has or by the schedule of the employees. The mean number of employees or for a company was 350 with the median being only 42. Work time per company had a similar trend with the mean number of hours worked at accompany being 68420 while the median was 2686000 hours per year. Over the course of a year the mean company would experience 3.14 injuries and the median would only have 1 injury. This gives us a median injury per 100,000 hours worked of 1.5 and a mean of 12.1. (Maybe a boxplot of injury per 100,000 hours worked).
 
+::: callout-note
+
+You should be inserting these numbers in using inline r or python code so that if the data updates, so do your results. For figures, make sure to label the code chunk, add a caption, and use inline references to the code chunk so that figures are automatically numbered. Discuss the significance of the mean being so much higher than the median. Consider exploring what sectors are closer to the mean than the median -- it may not make sense to have an overall average if there is lots of variability in business type.
+
+:::
+
 ## Sector having an effect
 
 The ANOVA test shows that there is a statistically significant difference in injury rates across sectors. Public administration demonstrated some of the highest injury rates, while manufacturing showed some of the lowest. (F-value: 3.001, DF: 20, p- value: 7.09e-06)//I should probably bin these section into what would be considered office work and non office work then rerun all the following comparisons SS ![Injuyies per 100,000 working hours by sector](images/sector.png)
+
+::: callout-note
+
+you need to show your code in this document, and produce your results interactively using inline code. All images should be created with code if they are charts/graphs, with captions and proper figure labels; the labels should be used to reference the figure in the text.
+
+:::
 
 ## Private/Public having an effect
 

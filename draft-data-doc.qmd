@@ -12,6 +12,19 @@ title: "Draft: Data Documentation"
 
 Occupational Safety and Health Administration (OSHA, United States Department of Labor  
 
+
+::: callout-note
+
+Cite your data sources as bibliographic references. Additionally include the URLs to the data as footnotes^[This is how you add a footnote in quarto] the first time you mention e.g. how it was downloaded. Be explicit - your goal is to make sure someone can follow your instructions and reproduce your analysis.
+
+Make sure your parentheses match!
+
+Make sure you're using quarto headers that are appropriate. Right now you have --- and level one headers, and I don't think that's going to work out on compile. Please compile your stuff and check to see how it looks before submitting it.
+
+Also grammar/spelling/punctuation checks are good -- you're missing periods throughout.
+
+:::
+
 ---
 
 # Licnces
