@@ -28,10 +28,14 @@ you need to show your code in this document, and produce your results interactiv
 
 The anova test shows that there is a significant difference in the rate of injuries per hour in the public vs private sector with local governments demonstrating a much higher rate of injury compared to federal government or private sector work (F-value: 7.168 DF: 2, p- value: 0.000771)// I should probalbe remove the N/A section it is only about 563 samples out of 360,000+ ![Injuyies per 100,000 working hours by public or private company](images/public.png)
 
-##Company size having an effect
+## Company size having an effect
+
+::: callout-note
+Code and referencing computed values using inline quarto results -- you need to use quarto inline references and if necessary generate a results table. Also, spellcheck.
+:::
 
 The anova test shows that there is a significant difference in the rate of injuries per hour in the size of the company as mid sized companys with 150-250 people have a significantly lower injury rate then other sized companies //should change the bins from 1, 2 to the acutual number of emplpyees (F-value: 2.714 DF: 4, p- value: 0.0282)![Injuyies per 100,000 working hours by Company Size](images/size.png)
 
-##States having an effect
+## States having an effect
 
 Despite the wide range observable in the states graph the Anova test shows that there is not a significant enough effect to show that state have an effect on the injury rate of workers // I think that AE and AP are for armed forces europe and Armed forces pacific that is why we have over 50 catatiores for the states but I need look into it more(F-value: 1.189 DF: 60, p- value: 0.15)![Injuyies per 100,000 working hours by state](images/state.png)
