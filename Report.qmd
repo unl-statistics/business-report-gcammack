@@ -1,0 +1,16 @@
+---
+title: "Injuries in Office and Non-Office Workers"
+author: "Gage Cammack"
+date: "2026-04-09"
+format: html
+---
+
+{{< include Executive.qmd >}}
+
+{{< include Introduction.qmd >}}
+
+{{< include Methodology.qmd >}}
+
+{{< include Results.qmd >}}
+
+{{< include Conclusion.qmd >}}

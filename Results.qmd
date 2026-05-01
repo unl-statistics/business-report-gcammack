@@ -1,0 +1,110 @@
+---
+title: "Results"
+format: html
+---
+
+# Results
+
+test test this is a test
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+
+library(dplyr)
+library(ggplot2)
+df <- read.csv("worker_data.csv")
+
+df <- df %>%
+  mutate(
+    sector_group = case_when(
+      sector %in% c("Manufacturing", "Construction", "Utilities", "Transportation and Warehousing", "Agriculture, Forestry, Fishing and Hunting", "Mining, Quarrying, and Oil and Gas Extraction") ~ "Non-Office",
+      sector %in% c("Finance and Insurance", "Information", "Professional, Scientific, and Technical Services", "Management of Companies and Enterprises") ~ "Office",
+      TRUE ~ "Other"
+    )
+  )
+
+sector_rates_grouped <- df %>%
+  filter(sector_group != "Other",
+         !is.na(total_hours_worked), # Remove missing values
+         total_hours_worked > 0
+  ) %>%
+  group_by(sector_group) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000
+  )
+
+ggplot(sector_rates_grouped, aes(x = reorder(sector_group, injury_rate), y = injury_rate,fill=sector_group)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Injury Rate by Office vs Non-Office",
+    subtitle = "Rates calculated per 100,000 hours worked using OSHA ITA 300A (2025) data",
+    x = "Work Type",
+    y = "Injuries per 100,000 Hours Worked"
+  ) +
+  theme_classic()+
+  theme(legend.position = "none")
+
+```
+
+
+test test this is a test
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+sector_rates_grouped_time_away_and_restricted <- df %>%
+  filter(sector_group != "Other") %>%
+  group_by(sector_group) %>%
+  summarise(
+    days_away = sum(total_dafw_days, na.rm = TRUE),
+    days_restricted = sum(total_djtr_days, na.rm = TRUE),
+    injuries = sum(total_injuries, na.rm = TRUE),
+    injury_rate = (((days_away + days_restricted)) / injuries) 
+  )
+
+
+ggplot(sector_rates_grouped_time_away_and_restricted, aes(x = reorder(sector_group, injury_rate), y = injury_rate,fill=sector_group)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Injury Severity by Office vs Non-Office",
+    x = "Work Type",
+    y = "Days Away and Restricted per Injury"
+  ) +
+  theme(legend.position = "none") +
+  theme_classic() +
+  theme(legend.position = "none")
+
+```
+temp temp
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+sector_rates_grouped_time_away <- df %>%
+  filter(sector_group != "Other") %>%
+  group_by(sector_group) %>%
+  summarise(
+    total_days_lost = sum(total_dafw_days + total_djtr_days, na.rm = TRUE),
+    total_hours = sum(total_hours_worked, na.rm = TRUE),
+    days_rate = (total_days_lost / total_hours) * 100000
+  )
+
+
+ggplot(sector_rates_grouped_time_away, aes(x = reorder(sector_group, days_rate), y = days_rate, fill = sector_group)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Days Away and Restricted per 100,000 Hours Worked",
+    x = "Work Type",
+    y = "Total Days Away and Restricted per 100,000 Hours"
+  ) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+```
+
+temp temp temp 
+
+
+
+

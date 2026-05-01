@@ -1,0 +1,16 @@
+---
+title: "Methodology"
+format: html
+---
+
+# Methodology
+
+This study will examine differences in workplace injury rates and severity between office and non-office workers to determine which type of injury has a more detrimental effect on the company. We will use data from the Occupational Safety and Health Administration (OSHA) Injury Tracking Application 300A dataset for the calendar year 2025. The OSHA Injury Tracking Application 300A dataset is a record of all employers reported workplace injuries and contains total hours worked at the company, number of recorded incidents at the company, days away from work due to injury, day restricted at work due to injury, and North American Industry Classification System (NAICS) codes. The dataset is publicly available on the OSHA website. 
+
+#### Classification of Workers
+
+To compare injury rates we categorized instances into two groups office and non-office. Classification was based on industry codes (NAICS). Office based codes were “Finance and Insurance”, “Information”, “Professional, Scientific, and Technical Services”, “Management of Companies and Enterprises”, where work is primarily defined by sedentary work and performed in office environments. Non-office based codes were “Manufacturing”, “Construction”, “Utilities”, “Transportation and Warehousing”, “Agriculture, Forestry, Fishing and Hunting”, “Mining, Quarrying, and Oil and Gas Extraction”, where workers are more likely to do physical labor or face environmental hazards.A notable exception from the office group is public administration this was left out as it contained both clerical works and police and firefighters making it had to be placed in either office or non-office groups. Similar to public administration any NAICS code not listed before was left out of the analysis because the Industry contained a mix of office and non-office jobs making it difficult to place in a single group.
+
+#### Variables and Measures
+
+To account for the variability of type of work that was done whether it was full time, part time or over time the analysis will examine metrics on a per hour basis rather than the traditional per employee bases that is commonly used. We also make the assumption that an injury that had more days that the individual was away from work or restricted on the job was a more severe injury.

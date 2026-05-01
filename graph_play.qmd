@@ -1,0 +1,299 @@
+---
+title: "graph_play"
+format: html
+---
+
+```{R}
+#library(dplyr)
+#library(ggplot2)
+df <- read.csv("worker_data.csv")
+```
+
+```{R}
+# State Graph
+state_rates <- df %>%
+  group_by(state) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000
+  ) %>%
+  arrange(desc(injury_rate))
+
+ggplot(state_rates, aes(x = reorder(state, injury_rate), y = injury_rate)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Injury Rate by State",
+    x = "State",
+    y = "Injuries per 100,000 Hours Worked"
+  )
+
+```
+
+```{R}
+# public private graph
+establishment_rates <- df %>%
+  group_by(establishment_type) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000
+  )
+
+ggplot(establishment_rates, aes(x = factor(establishment_type), y = injury_rate)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Injury Rate by Establishment Type",
+    x = "Establishment Type",
+    y = "Injuries per 100,000 Hours Worked"
+  ) +
+  theme_minimal()
+
+```
+
+```{R}
+# Company Size Graph
+size_rates <- df %>%
+  group_by(size) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000
+  )
+
+ggplot(size_rates, aes(x = factor(size), y = injury_rate)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Injury Rate by Establishment Size",
+    x = "Establishment Size",
+    y = "Injuries per 100,000 Hours Worked"
+  ) +
+  theme_minimal()
+
+```
+
+```{R}
+# public private graph
+sector_rates <- df %>%
+  group_by(sector) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000
+  )
+
+ggplot(sector_rates, aes(x = reorder(sector, injury_rate), y = injury_rate)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Injury Rate by Sector",
+    x = "Sector",
+    y = "Injuries per 100,000 Hours Worked"
+  ) +
+  theme_minimal()
+
+```
+
+```{R}
+
+df <- df %>%
+  mutate(
+    sector_group = case_when(
+      sector %in% c("Manufacturing", "Construction", "Utilities", "Retail Trade", "Wholesale Trade", "Accommodation and Food Services", "Transportation and Warehousing", "Agriculture, Forestry, Fishing and Hunting", "Mining, Quarrying, and Oil and Gas Extraction") ~ "Non-Office",
+      sector %in% c("Health Care and Social Assistance", "Administrative and Support and Waste Management and Remediation Services", "Other Services", "Public Administration", "Educational Services", "Real Estate and Rental and Leasing", "Arts, Entertainment, and Recreation", "Unknown" ) ~ "Mix",
+      sector %in% c("Finance and Insurance", "Information", "Professional, Scientific, and Technical Services", "Management of Companies and Enterprises") ~ "Office",
+      TRUE ~ "Other"
+    )
+  )
+
+sector_rates_grouped <- df %>%
+  group_by(sector_group) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000
+  )
+
+ggplot(sector_rates_grouped, aes(x = reorder(sector_group, injury_rate), y = injury_rate,fill=sector_group)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Injury Rate by Sector (Grouped)",
+    x = "Sector Group",
+    y = "Injuries per 100,000 Hours Worked"
+  ) +
+  theme_classic()
+
+```
+
+```{R}
+
+sector_rates_grouped_time_away_and_restricted <- df %>%
+  group_by(sector_group) %>%
+  summarise(
+    days_away = sum(total_dafw_days, na.rm = TRUE),
+    days_restricted = sum(total_djtr_days, na.rm = TRUE),
+    injuries = sum(total_injuries, na.rm = TRUE),
+    injury_rate = (((days_away + days_restricted)) / injuries) 
+  )
+
+ggplot(sector_rates_grouped_time_away_and_restricted, aes(x = reorder(sector_group, injury_rate), y = injury_rate,fill=sector_group)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(
+    title = "Injury Severity by Sector (Grouped)",
+    x = "Sector Group",
+    y = "Days Away and Restricted per Injury"
+  ) +
+  theme_classic() 
+
+
+```
+
+```{R}
+df <- df %>%
+  mutate(
+    establishment_type_clean = case_when(
+      establishment_type == 1 ~ "Private",
+      establishment_type == 2 ~ "State Government",
+      establishment_type == 3 ~ "Local Government",
+      TRUE ~ "Unknown"
+    )
+  )
+
+est_type_sector_rates <- df %>%
+  group_by(establishment_type_clean, sector_group) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000,
+    .groups = "drop"
+  )
+
+ggplot(est_type_sector_rates, 
+       aes(x = establishment_type_clean, 
+           y = injury_rate, 
+           fill = sector_group)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Injury Rate by Sector Group and Establishment Type",
+    x = "Establishment Type",
+    y = "Injuries per 100,000 Hours Worked",
+    fill = "Sector Group"
+  ) +
+  theme_classic()
+```
+
+```{R}
+df <- df %>%
+  mutate(
+    establishment_type_clean = case_when(
+      establishment_type == 1 ~ "Private",
+      establishment_type == 2 ~ "State Government",
+      establishment_type == 3 ~ "Local Government",
+      TRUE ~ "Unknown"
+    )
+  )
+
+est_type_sector_rates <- df %>%
+  group_by(establishment_type_clean, sector_group) %>%
+  summarise(
+    days_away = sum(total_dafw_days, na.rm = TRUE),
+    days_restricted = sum(total_djtr_days, na.rm = TRUE),
+    injuries = sum(total_injuries, na.rm = TRUE),
+    injury_rate = (((days_away + days_restricted)) / injuries),
+    .groups = "drop"
+  )
+
+ggplot(est_type_sector_rates, 
+       aes(x = establishment_type_clean, 
+           y = injury_rate, 
+           fill = sector_group)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Injury Severity by Sector Group and Establishment Type",
+    x = "Establishment Type",
+    y = "Days Away and Restricted per Injury",
+    fill = "Sector Group"
+  ) +
+  theme_classic()
+```
+
+```{R}
+
+df <- df %>%
+  mutate(
+    size_group = case_when(
+      size == 1 ~ "<20 Employees",
+      size %in% c(2, 21, 22)  ~ "20-249 Employees",
+      size == 3 ~ "250+ Employees",
+      TRUE ~ "Unknown"
+    )
+  )
+
+size_sector_rates <- df %>%
+  group_by(size_group, sector_group) %>%
+  summarise(
+    injuries = sum(total_injuries, na.rm = TRUE),
+    hours = sum(total_hours_worked, na.rm = TRUE),
+    injury_rate = (injuries / hours) * 100000,
+    .groups = "drop"
+  )
+
+ggplot(size_sector_rates, 
+       aes(x = size_group, 
+           y = injury_rate, 
+           fill = sector_group)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Injury Rate by Sector Group and Establishment Size",
+    x = "Establishment Size",
+    y = "Injuries per 100,000 Hours Worked",
+    fill = "Sector Group"
+  ) +
+  theme_classic()
+
+```
+
+```{R}
+
+df <- df %>%
+  mutate(
+    size_group = case_when(
+      size == 1 ~ "<20 Employees",
+      size %in% c(2, 21, 22)  ~ "20-249 Employees",
+      size == 3 ~ "250+ Employees",
+      TRUE ~ "Unknown"
+    )
+  )
+
+size_sector_rates <- df %>%
+  group_by(size_group, sector_group) %>%
+  summarise(
+    days_away = sum(total_dafw_days, na.rm = TRUE),
+    days_restricted = sum(total_djtr_days, na.rm = TRUE),
+    injuries = sum(total_injuries, na.rm = TRUE),
+    injury_rate = (((days_away + days_restricted)) / injuries),
+    .groups = "drop"
+  )
+
+ggplot(size_sector_rates, 
+       aes(x = size_group, 
+           y = injury_rate, 
+           fill = sector_group)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Injury Severity by Sector Group and Establishment Size",
+    x = "Establishment Size",
+    y = "Days Away and Restricted per Injury",
+    fill = "Sector Group"
+  ) +
+  theme_classic()
+
+```
+
+```{R}
+df %>%
+  count(size, sort = TRUE)
+```

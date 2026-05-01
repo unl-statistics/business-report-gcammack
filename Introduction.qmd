@@ -1,0 +1,10 @@
+---
+title: "Introduction"
+format: html
+---
+
+# Introduction
+
+Improving workplace safety is not only a beneficial policy for employees health but the business as a whole. Fewer Injuries means paying out less for workers compensation and employees spend more days working at full health. While there is a general perception that blue collar work such as manufacturing and construction workers are at a higher risk of injury due to the physical nature of such work, recent studies have questioned that line of logic. White caller workers are exposed to many of the same risks that blue collar workers face such as falls, slips, repetitive motion and bodily injuries which make up over half of all reported injuries in the United States [citation one].
+
+This report evaluates whether office workers are at a greater risk of injury compared to non-office workers across thousands of companies. Using data from  Occupational Safety and Health Administration (OSHA) the analysis will consider both the probability of injury occurrence and the severity of injuries. The goal of this report is to determine whether injuries that are sustained by office workers or non-office workers have a more detrimental effect on company productivity. 
