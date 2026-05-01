@@ -5,7 +5,7 @@ format: html
 
 # Results
 
-test test this is a test
+
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -48,9 +48,7 @@ ggplot(sector_rates_grouped, aes(x = reorder(sector_group, injury_rate), y = inj
   theme(legend.position = "none")
 
 ```
-
-
-test test this is a test
+Hours worked were used to standardize injury rates across different workloads so that rates were not skewed by overtime or part time work. When comparing injuries per 100,000 hours worked, office workers demonstrated a higher rate of injury than non-office workers. Office workers experienced 0.274 injuries per 100,000 hours worked, while non-office workers experienced 0.0592 injuries per 100,000, close to a fivefold difference across over 160,000 observations . This indicates that office workers experience injuries more frequently than non-office workers.
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 sector_rates_grouped_time_away_and_restricted <- df %>%
   filter(sector_group != "Other") %>%
@@ -76,7 +74,7 @@ ggplot(sector_rates_grouped_time_away_and_restricted, aes(x = reorder(sector_gro
   theme(legend.position = "none")
 
 ```
-temp temp
+Although the office workers were more at risk of an injury, injury severity differed significantly when measured by the average number of days away from work and days restricted at work per injury. Non-office workers averaged approximately 134 days away or restricted at work per injury compared to only 29.4 days for office workers. This represents a substantial  increase in severity for non-office injuries.
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -102,8 +100,7 @@ ggplot(sector_rates_grouped_time_away, aes(x = reorder(sector_group, days_rate),
   theme(legend.position = "none")
 
 ```
-
-temp temp temp 
+We also compared workplace injuries to find the amount of productivity loss. Productivity loss was evaluated through the number of days away from work and days with restriction per 100,000 hours worked. The findings showed little difference between office and non-office workers. Office workers suffered 8.12 days away or restricted per 100,000 hours worked while non-office workers experienced 7.92 days per 100,000 hours worked. These results suggest that office and non-office employees experience similar amounts of productivity loss to injury.
 
 
 
