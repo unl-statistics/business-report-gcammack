@@ -1,8 +1,0 @@
----
-title: "Executive"
-format: html
----
-
-# Executive Summary
-
-This report uses 2025 OSHA data to compare the frequency and severity of injuries between office and non-office workers. The findings reveal an interesting conclusion while office workers experience injuries at a nearly much higher rate than their non-office counterparts 0.274 vs 0.0592 per 100,000 hours, non-office injuries are more severe resulting in 134 lost days of work compared to just 29.4 days for office staff. Despite these differences when compared for how much total loss of productivity it was found that office workers and non office workers experience that same amount of lost productivity.However the study's precision is limited underreporting of injuries and the use of NAICS codes. To mitigate the productivity loss and improve the safety of all employees, this report recommends clean environments, safety training, proper use of PPE, and regular maintenance to reduce the likelihood of injury.
